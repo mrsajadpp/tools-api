@@ -15,7 +15,8 @@ app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.post("/api/pargraph/summery", async (req, res) => {
     try {
-        const result = await model.generateContent(req.body.prompt);
+        if (!req.body.content) res.status("404").json("Please give a text");
+        const result = await model.generateContent(`Summarize the following text in a concise paragraph:\n\n${req.body.content}`);
         res.status(200).json({ response: result.response.candidates[0].content.parts[0].text });
     } catch (error) {
         console.error("Error generating content:", error);
