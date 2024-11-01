@@ -10,7 +10,7 @@ const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 app.use(bp.json())
 app.use(bp.urlencoded({ extended: true }))
 
-app.get("/", (req, res) => res.send("Express on Vercel"));
+app.get("/", (req, res) => res.send("Express on Vercel")); 
 
 app.post("/api/pargraph/summery", async (req, res) => {
     try {
