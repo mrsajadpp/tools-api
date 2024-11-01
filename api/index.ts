@@ -34,6 +34,11 @@ app.get("*", (req, res) => res.status(404).json({
     message: "The requested API route does not exist."
 }));
 
+app.post("*", (req, res) => res.status(404).json({
+    error: "Not Found",
+    message: "The requested API route does not exist."
+}));
+
 app.listen(3002, () => console.log("Server ready on port 3002."));
 
 module.exports = app;
