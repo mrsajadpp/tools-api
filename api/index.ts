@@ -15,13 +15,19 @@ app.get("/", (req, res) => res.send("Express on Vercel"));
 
 app.post("/api/pargraph/summery", async (req, res) => {
     try {
-        if (!req.body.content) res.status("404").json("Please give a text");
+        if (!req.body.content) return res.status(400).json({ error: "Invalid Request", message: "Content is required for summarization." });
         const result = await model.generateContent(`Summarize the following text in a concise paragraph:\n\n${req.body.content}`);
+        if (!result || !result.response || !result.response.candidates || !result.response.candidates[0]) return res.status(500).json({ error: "Processing Error", message: "Failed to generate summary. Please try again later." });
+
         res.status(200).json({ response: result.response.candidates[0].content.parts[0].text });
     } catch (error) {
         console.error("Error generating content:", error);
+        res.status(500).json({
+            error: "Internal Server Error",
+            message: "An error occurred while processing your request. Please try again later."
+        });
     }
-})
+});
 
 app.listen(3002, () => console.log("Server ready on port 3002."));
 
