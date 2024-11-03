@@ -22,7 +22,7 @@ app.get("/", (req, res) => res.send("Hello world"));
 app.post("/api/pargraph/summery", async (req, res) => {
     try {
         if (!req.body.content) return res.status(400).json({ error: "Invalid Request", message: "Content is required for summarization." });
-        const result = await model.generateContent(`Summarize the following text in a concise paragraph:\n\n${req.body.content}`);
+        const result = await model.generateContent(`Summarize the following text in a concise paragraph:\n\n${req.body.content}. Provide only the summary paragraph without any introductory words or explanations.`);
         if (!result || !result.response || !result.response.candidates || !result.response.candidates[0]) return res.status(500).json({ error: "Processing Error", message: "Failed to generate summary. Please try again later." });
 
         res.status(200).json({ response: result.response.candidates[0].content.parts[0].text });
