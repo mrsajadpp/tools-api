@@ -54,9 +54,14 @@ app.post("/api/paragraph/generate", async (req, res) => {
 app.post("/api/title/generate", async (req, res) => {
     try {
         if (!req.body.content) return res.status(400).json({ error: "Invalid Request", message: "Content is required for  title generation." });
-        const result = await model.generateContent(`Generate a catchy and relevant title based on the following content:\n\n${req.body.content}`);
+        const result = await model.generateContent(`Generate four unique title suggestions for "${req.body.content}". Each title should use a different tone or format. Provide only the titles, without any introductory text or explanations.`);
         if (!result || !result.response || !result.response.candidates || !result.response.candidates[0]) return res.status(500).json({ error: "Processing Error", message: "Failed to generate a title. Please try again later." });
 
+        // let title = result.response.candidates[0].content.parts[0].text
+        //     .replace(/^.*?(title|titles)\s+(for|suggestion).*?:?\s*/i, '') // Remove "Titles for", "Title suggestion for", etc.
+        //     .replace(/^#+\s*/, '') // Remove markdown headers like "##" or "#"
+        //     .trim()
+        //     .split("\n")[0]; // Only the first line
         res.status(200).json({ response: result.response.candidates[0].content.parts[0].text });
     } catch (error) {
         console.error("Error generating content:", error);
@@ -77,6 +82,6 @@ app.post("*", (req, res) => res.status(404).json({
     message: "The requested API route does not exist."
 }));
 
-app.listen(3004, () => console.log("Server ready on port 3002."));
+app.listen(3003, () => console.log("Server ready on port 3002."));
 
 module.exports = app;
