@@ -35,6 +35,22 @@ app.post("/api/pargraph/summery", async (req, res) => {
     }
 });
 
+app.post("/api/paragraph/generate", async (req, res) => {
+    try {
+        if (!req.body.content) return res.status(400).json({ error: "Invalid Request", message: "Content is required for paragraph generation" });
+        const result = await model.generateContent(`Generate a well-constructed paragraph based on the following text:\n\n${req.body.content}`);
+        if (!result || !result.response || !result.response.candidates || !result.response.candidates[0]) return res.status(500).json({ error: "Processing Error", message: "Failed to generate a paragraph. Please try again later." });
+
+        res.status(200).json({ response: result.response.candidates[0].content.parts[0].text });
+    } catch (error) {
+        console.error("Error generating content:", error);
+        res.status(500).json({
+            error: "Internal Server Error",
+            message: "An error occurred while processing your request. Please try again later."
+        });
+    }
+});
+
 app.get("*", (req, res) => res.status(404).json({
     error: "Not Found",
     message: "The requested API route does not exist."
@@ -45,6 +61,6 @@ app.post("*", (req, res) => res.status(404).json({
     message: "The requested API route does not exist."
 }));
 
-app.listen(3002, () => console.log("Server ready on port 3002."));
+app.listen(3004, () => console.log("Server ready on port 3002."));
 
 module.exports = app;
