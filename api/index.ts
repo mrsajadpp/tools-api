@@ -51,6 +51,22 @@ app.post("/api/paragraph/generate", async (req, res) => {
     }
 });
 
+app.post("/api/title/generate", async (req, res) => {
+    try {
+        if (!req.body.content) return res.status(400).json({ error: "Invalid Request", message: "Content is required for  title generation." });
+        const result = await model.generateContent(`Generate a catchy and relevant title based on the following content:\n\n${req.body.content}`);
+        if (!result || !result.response || !result.response.candidates || !result.response.candidates[0]) return res.status(500).json({ error: "Processing Error", message: "Failed to generate a title. Please try again later." });
+
+        res.status(200).json({ response: result.response.candidates[0].content.parts[0].text });
+    } catch (error) {
+        console.error("Error generating content:", error);
+        res.status(500).json({
+            error: "Internal Server Error",
+            message: "An error occurred while processing your request. Please try again later."
+        });
+    }
+});
+
 app.get("*", (req, res) => res.status(404).json({
     error: "Not Found",
     message: "The requested API route does not exist."
