@@ -30,7 +30,7 @@ app.post("/api/pargraph/summery", async (req, res) => {
         console.error("Error generating content:", error);
         res.status(500).json({
             error: "Internal Server Error",
-            message: "An error occurred while processing your request. Please try again later."
+            message: "An error occurred while processing your request. Currently, we are experiencing a high volume of traffic. Please try to generate your request one more time."
         });
     }
 });
@@ -46,7 +46,7 @@ app.post("/api/paragraph/generate", async (req, res) => {
         console.error("Error generating content:", error);
         res.status(500).json({
             error: "Internal Server Error",
-            message: "An error occurred while processing your request. Please try again later."
+            message: "An error occurred while processing your request. Currently, we are experiencing a high volume of traffic. Please try to generate your request one more time."
         });
     }
 });
@@ -67,7 +67,7 @@ app.post("/api/title/generate", async (req, res) => {
         console.error("Error generating content:", error);
         res.status(500).json({
             error: "Internal Server Error",
-            message: "An error occurred while processing your request. Please try again later."
+            message: "An error occurred while processing your request. Currently, we are experiencing a high volume of traffic. Please try to generate your request one more time."
         });
     }
 });
@@ -83,7 +83,7 @@ app.post("/api/caption/generate", async (req, res) => {
         console.error("Error generating content:", error);
         res.status(500).json({
             error: "Internal Server Error",
-            message: "An error occurred while processing your request. Please try again later."
+            message: "An error occurred while processing your request. Currently, we are experiencing a high volume of traffic. Please try to generate your request one more time."
         });
     }
 });
@@ -102,7 +102,7 @@ app.post("/api/chemical/reaction-completer", async (req, res) => {
         console.error("Error generating content:", error);
         res.status(500).json({
             error: "Internal Server Error",
-            message: "An error occurred while processing your request. Please try again later."
+            message: "An error occurred while processing your request. Currently, we are experiencing a high volume of traffic. Please try to generate your request one more time."
         });
     }
 });
@@ -118,7 +118,7 @@ app.post("/api/chemical/predict-property", async (req, res) => {
         console.error("Error generating content:", error);
         res.status(500).json({
             error: "Internal Server Error",
-            message: "An error occurred while processing your request. Please try again later."
+            message: "An error occurred while processing your request. Currently, we are experiencing a high volume of traffic. Please try to generate your request one more time."
         });
     }
 });
@@ -134,7 +134,7 @@ app.post("/api/chemical/predict-environment", async (req, res) => {
         console.error("Error generating content:", error);
         res.status(500).json({
             error: "Internal Server Error",
-            message: "An error occurred while processing your request. Please try again later."
+            message: "An error occurred while processing your request. Currently, we are experiencing a high volume of traffic. Please try to generate your request one more time."
         });
     }
 });
@@ -150,7 +150,7 @@ app.post("/api/chemical/compound-compatibility", async (req, res) => {
         console.error("Error generating content:", error);
         res.status(500).json({
             error: "Internal Server Error",
-            message: "An error occurred while processing your request. Please try again later."
+            message: "An error occurred while processing your request. Currently, we are experiencing a high volume of traffic. Please try to generate your request one more time."
         });
     }
 });
